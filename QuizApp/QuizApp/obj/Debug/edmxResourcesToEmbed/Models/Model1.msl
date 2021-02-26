@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QuizAppModelStoreContainer" CdmEntityContainer="QuizAppEntities">
+    <EntitySetMapping Name="student">
+      <EntityTypeMapping TypeName="QuizAppModel.student">
+        <MappingFragment StoreEntitySet="student">
+          <ScalarProperty Name="std_id" ColumnName="std_id" />
+          <ScalarProperty Name="std_name" ColumnName="std_name" />
+          <ScalarProperty Name="std_password" ColumnName="std_password" />
+          <ScalarProperty Name="std_image" ColumnName="std_image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="QuizAppModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_admin">
+      <EntityTypeMapping TypeName="QuizAppModel.tbl_admin">
+        <MappingFragment StoreEntitySet="tbl_admin">
+          <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+          <ScalarProperty Name="ad_name" ColumnName="ad_name" />
+          <ScalarProperty Name="ad_pass" ColumnName="ad_pass" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_questions">
+      <EntityTypeMapping TypeName="QuizAppModel.tbl_questions">
+        <MappingFragment StoreEntitySet="tbl_questions">
+          <ScalarProperty Name="q_fk_catid" ColumnName="q_fk_catid" />
+          <ScalarProperty Name="q_id" ColumnName="q_id" />
+          <ScalarProperty Name="q_text" ColumnName="q_text" />
+          <ScalarProperty Name="QA" ColumnName="QA" />
+          <ScalarProperty Name="QB" ColumnName="QB" />
+          <ScalarProperty Name="QC" ColumnName="QC" />
+          <ScalarProperty Name="QD" ColumnName="QD" />
+          <ScalarProperty Name="QCorrectAns" ColumnName="QCorrectAns" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_setQuiz">
+      <EntityTypeMapping TypeName="QuizAppModel.tbl_setQuiz">
+        <MappingFragment StoreEntitySet="tbl_setQuiz">
+          <ScalarProperty Name="QuizId" ColumnName="QuizId" />
+          <ScalarProperty Name="Quiz_date" ColumnName="Quiz_date" />
+          <ScalarProperty Name="Quiz_fk_std" ColumnName="Quiz_fk_std" />
+          <ScalarProperty Name="Quiz_name" ColumnName="Quiz_name" />
+          <ScalarProperty Name="std_score" ColumnName="std_score" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_category">
+      <EntityTypeMapping TypeName="QuizAppModel.tbl_category">
+        <MappingFragment StoreEntitySet="tbl_category">
+          <ScalarProperty Name="cat_fk_ad_id" ColumnName="cat_fk_ad_id" />
+          <ScalarProperty Name="cat_name" ColumnName="cat_name" />
+          <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

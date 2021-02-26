@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuizAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="student">
+    <Key>
+      <PropertyRef Name="std_id" />
+    </Key>
+    <Property Name="std_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="std_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="std_password" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="std_image" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tbl_admin">
+    <Key>
+      <PropertyRef Name="ad_id" />
+    </Key>
+    <Property Name="ad_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ad_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="ad_pass" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_category">
+    <Key>
+      <PropertyRef Name="cat_id" />
+    </Key>
+    <Property Name="cat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cat_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="cat_fk_ad_id" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_questions">
+    <Key>
+      <PropertyRef Name="q_id" />
+    </Key>
+    <Property Name="q_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="q_text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="QA" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="QB" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="QC" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="QD" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="QCorrectAns" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="q_fk_catid" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_setQuiz">
+    <Key>
+      <PropertyRef Name="QuizId" />
+    </Key>
+    <Property Name="QuizId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Quiz_date" Type="datetime" />
+    <Property Name="Quiz_fk_std" Type="int" />
+    <Property Name="Quiz_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="std_score" Type="int" />
+  </EntityType>
+  <Association Name="FK__tbl_categ__cat_f__49C3F6B7">
+    <End Role="tbl_admin" Type="Self.tbl_admin" Multiplicity="0..1" />
+    <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_admin">
+        <PropertyRef Name="ad_id" />
+      </Principal>
+      <Dependent Role="tbl_category">
+        <PropertyRef Name="cat_fk_ad_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_quest__q_fk___4AB81AF0">
+    <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="0..1" />
+    <End Role="tbl_questions" Type="Self.tbl_questions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_category">
+        <PropertyRef Name="cat_id" />
+      </Principal>
+      <Dependent Role="tbl_questions">
+        <PropertyRef Name="q_fk_catid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_setQu__Quiz___4222D4EF">
+    <End Role="student" Type="Self.student" Multiplicity="0..1" />
+    <End Role="tbl_setQuiz" Type="Self.tbl_setQuiz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="student">
+        <PropertyRef Name="std_id" />
+      </Principal>
+      <Dependent Role="tbl_setQuiz">
+        <PropertyRef Name="Quiz_fk_std" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuizAppModelStoreContainer">
+    <EntitySet Name="student" EntityType="Self.student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_admin" EntityType="Self.tbl_admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_category" EntityType="Self.tbl_category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_questions" EntityType="Self.tbl_questions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_setQuiz" EntityType="Self.tbl_setQuiz" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tbl_categ__cat_f__49C3F6B7" Association="Self.FK__tbl_categ__cat_f__49C3F6B7">
+      <End Role="tbl_admin" EntitySet="tbl_admin" />
+      <End Role="tbl_category" EntitySet="tbl_category" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_quest__q_fk___4AB81AF0" Association="Self.FK__tbl_quest__q_fk___4AB81AF0">
+      <End Role="tbl_category" EntitySet="tbl_category" />
+      <End Role="tbl_questions" EntitySet="tbl_questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_setQu__Quiz___4222D4EF" Association="Self.FK__tbl_setQu__Quiz___4222D4EF">
+      <End Role="student" EntitySet="student" />
+      <End Role="tbl_setQuiz" EntitySet="tbl_setQuiz" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
