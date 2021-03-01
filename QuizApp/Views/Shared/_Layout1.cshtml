@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  
+   
+
+
+    <meta name="viewport" content="width-device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <title>Dashboard</title>
+</head>
+<body>
+
+
+    <div class="row">
+
+        <div class="col-lg-2-md-2 col-sm-2 col-xs-2" style="height:900px ; border:1px solid gray ; background-color:#35539B">
+            <div class="list-group">
+
+                <div class="list-group-item">
+                    @Html.ActionLink("Add_category", "Add_category", new { @class = "list-group-item" })
+                </div>
+                <div class="list-group-item">
+                    @Html.ActionLink("Add_Qestions", "Add_Questions", new { @class = "list-group-item" })
+                </div>
+                <div class="list-group-item">
+                    @Html.ActionLink("Reports", "Dashboard", new { @class = "list-group-item" })
+                </div>
+                <div class="list-group-item">
+                    @Html.ActionLink("Logout", "Logout", new { @class = "list-group-item" })
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col-lg-10-md-10 col-sm-10 col-xs-10" style="height:900px ; border:1px solid gray">  @RenderBody()</div>
+
+      
+    </div>
+  
+</body>
+</html>
