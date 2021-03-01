@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace QuizApp.Controllers
 {
@@ -24,7 +25,7 @@ namespace QuizApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Sregister(student std,HttpPostedFileBase imgfile)
+        public ActionResult Sregister(student std, IFormFile imgfile)
         {
 
             student s = new student();
@@ -32,10 +33,13 @@ namespace QuizApp.Controllers
             {
                 s.std_name = std.std_name;
                 s.std_password = std.std_password;
-                s.std_image = uploadingImage(imgfile);
+                s.std_image =  "";
 
                 db.student.Add(s);
                 db.SaveChanges();
+                return RedirectToAction("slogin");
+
+                
             }
             catch (Exception)
             {
@@ -44,7 +48,7 @@ namespace QuizApp.Controllers
 
             }
       
-
+              
 
             return View();
 
@@ -137,6 +141,30 @@ namespace QuizApp.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult slogin(student s)
+        {
+            student sv = db.student.Where(x => x.std_name == s.std_name && x.std_password == s.std_password).SingleOrDefault();
+
+            if(sv == null)
+            {
+                ViewBag.msg = "Invalid User Name or Password";
+            }
+            else
+            {
+                return RedirectToAction("ExamDashboard");
+            }
+
+            return View();
+        }
+
+
+        public ActionResult ExamDashboard()
+        {
+            return View();
+        }
+
+
         public ActionResult Dashboard()
         {
             return View();
@@ -146,7 +174,7 @@ namespace QuizApp.Controllers
 
         public ActionResult Add_category()
         {
-            Session["ad_id"] = 1;
+            
             int ad_id = Convert.ToInt32(Session["ad_id"].ToString());
 
             List<tbl_category> catlist = db.tbl_category.Where(x=>x.cat_fk_ad_id==ad_id).OrderByDescending(x => x.cat_id).ToList();
