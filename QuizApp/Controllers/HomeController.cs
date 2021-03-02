@@ -25,7 +25,7 @@ namespace QuizApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Sregister(student std, IFormFile imgfile)
+        public ActionResult Sregister(student std, HttpPostedFileBase imgfile)
         {
 
             student s = new student();
@@ -33,7 +33,7 @@ namespace QuizApp.Controllers
             {
                 s.std_name = std.std_name;
                 s.std_password = std.std_password;
-                s.std_image =  "";
+                s.std_image = uploadingImage(imgfile);
 
                 db.student.Add(s);
                 db.SaveChanges();
@@ -174,7 +174,7 @@ namespace QuizApp.Controllers
 
         public ActionResult Add_category()
         {
-            
+            Session["ad_id"] = 2;
             int ad_id = Convert.ToInt32(Session["ad_id"].ToString());
 
             List<tbl_category> catlist = db.tbl_category.Where(x=>x.cat_fk_ad_id==ad_id).OrderByDescending(x => x.cat_id).ToList();
