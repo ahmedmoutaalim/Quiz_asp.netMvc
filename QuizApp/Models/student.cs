@@ -11,7 +11,6 @@ namespace QuizApp.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class student
     {
@@ -22,12 +21,7 @@ namespace QuizApp.Models
         }
     
         public int std_id { get; set; }
-        [Display (Name = "Name")]
-        [Required (ErrorMessage ="Error")]
         public string std_name { get; set; }
-
-        [Display(Name = "password")]
-        [Required(ErrorMessage = "Error")]
         public string std_password { get; set; }
         public string std_image { get; set; }
     

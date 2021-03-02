@@ -11,7 +11,6 @@ namespace QuizApp.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class tbl_category
     {
@@ -22,11 +21,9 @@ namespace QuizApp.Models
         }
     
         public int cat_id { get; set; }
-
-        [Display (Name = "Subject")]
-        [Required (ErrorMessage ="Error")]
         public string cat_name { get; set; }
         public Nullable<int> cat_fk_ad_id { get; set; }
+        public string cat_encrytped_string { get; set; }
     
         public virtual tbl_admin tbl_admin { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

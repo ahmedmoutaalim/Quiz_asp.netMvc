@@ -59,6 +59,7 @@
     <EntitySetMapping Name="tbl_category">
       <EntityTypeMapping TypeName="QuizAppModel.tbl_category">
         <MappingFragment StoreEntitySet="tbl_category">
+          <ScalarProperty Name="cat_encrytped_string" ColumnName="cat_encrytped_string" />
           <ScalarProperty Name="cat_fk_ad_id" ColumnName="cat_fk_ad_id" />
           <ScalarProperty Name="cat_name" ColumnName="cat_name" />
           <ScalarProperty Name="cat_id" ColumnName="cat_id" />

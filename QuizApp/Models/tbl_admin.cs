@@ -11,8 +11,7 @@ namespace QuizApp.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class tbl_admin
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,21 +19,12 @@ namespace QuizApp.Models
         {
             this.tbl_category = new HashSet<tbl_category>();
         }
-
+    
         public int ad_id { get; set; }
-
-
-        [Display(Name = "Name")]
-        [Required(ErrorMessage = "*")]
         public string ad_name { get; set; }
-
-        [Display(Name = "Password")]
-        [Required(ErrorMessage = "*")]
         public string ad_pass { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_category> tbl_category { get; set; }
     }
 }
-
-

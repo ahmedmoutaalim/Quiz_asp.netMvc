@@ -95,6 +95,7 @@
     <Property Name="cat_fk_ad_id" Type="Int32" />
     <NavigationProperty Name="tbl_admin" Relationship="QuizAppModel.FK__tbl_categ__cat_f__49C3F6B7" FromRole="tbl_category" ToRole="tbl_admin" />
     <NavigationProperty Name="tbl_questions" Relationship="QuizAppModel.FK__tbl_quest__q_fk___4AB81AF0" FromRole="tbl_category" ToRole="tbl_questions" />
+    <Property Name="cat_encrytped_string" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK__tbl_categ__cat_f__49C3F6B7">
     <End Type="QuizAppModel.tbl_admin" Role="tbl_admin" Multiplicity="0..1" />

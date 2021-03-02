@@ -197,6 +197,7 @@ namespace QuizApp.Controllers
 
 
             c.cat_name = cat.cat_name;
+            c.cat_encrytped_string = cat.cat_encrytped_string;
             c.cat_fk_ad_id = Convert.ToInt32(Session["ad_id"].ToString());
 
             db.tbl_category.Add(c);

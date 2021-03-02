@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Youcode\Desktop\Quiz_asp.netMvc\QuizApp\QuizApp\Models\Model1.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Youcode\Desktop\Nouveau dossier\Quiz_asp.netMvc - Copie\QuizApp\Models\Model1.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
