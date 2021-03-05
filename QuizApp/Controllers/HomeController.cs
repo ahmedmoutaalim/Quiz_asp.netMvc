@@ -110,6 +110,7 @@ namespace QuizApp.Controllers
 
 
         [HttpGet]
+   
         public ActionResult tlogin()
         {
             return View();
@@ -117,6 +118,7 @@ namespace QuizApp.Controllers
 
 
         [HttpPost]
+      
         public ActionResult tlogin(tbl_admin a)
         {
 
@@ -135,6 +137,8 @@ namespace QuizApp.Controllers
             return View();
         }
 
+        [HttpGet]
+      
         public ActionResult slogin()
         {
             return View();
@@ -142,6 +146,7 @@ namespace QuizApp.Controllers
 
 
         [HttpPost]
+     
         public ActionResult slogin(student s)
         {
             student sv = db.student.Where(x => x.std_name == s.std_name && x.std_password == s.std_password).SingleOrDefault();
@@ -152,29 +157,81 @@ namespace QuizApp.Controllers
             }
             else
             {
+                Session["std_id"] = s.std_id;
                 return RedirectToAction("ExamDashboard");
             }
 
             return View();
         }
 
-
+        
         public ActionResult ExamDashboard()
         {
+          
+            return View();
+        }
+ 
+        [HttpPost]
+      
+        public ActionResult ExamDashboard(string room)
+        {
+
+            List <tbl_category> list = db.tbl_category.ToList();
+
+            foreach (var item in list)
+            {
+
+               
+                if (item.cat_encrytped_string == room)
+                {
+                    TempData["examid"] = item.cat_id;
+                    TempData.Keep();
+                    return RedirectToAction("StartQuiz");
+                }
+                else
+                {
+                    ViewBag.error = "No Room found !!";
+                }
+            }
             return View();
         }
 
+        public ActionResult StartQuiz()
+        {
+
+            tbl_questions q = null;
+
+            if(TempData["q_id"] == null)
+            {
+              int examId = Convert.ToInt32(TempData["examid"]);
+              q = db.tbl_questions.First(x => x.q_fk_catid == examId);
+              //tbl_questions q = db.tbl_questions.Where(x=>x.q_fk_catid == examId && ).SingleOrDefault();
+            }
+            return View(q);
+        }
 
         public ActionResult Dashboard()
         {
-            return View();
+            if (Session["ad_id"] == null)
+            {
+                return RedirectToAction("tlogin");
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
         [HttpGet]
 
         public ActionResult Add_category()
         {
-            Session["ad_id"] = 2;
+            if (Session["ad_id"] == null)
+            {
+                return RedirectToAction("Dashboard");
+            }
+            Session["ad_id"] = 1;
             int ad_id = Convert.ToInt32(Session["ad_id"].ToString());
 
             List<tbl_category> catlist = db.tbl_category.Where(x=>x.cat_fk_ad_id==ad_id).OrderByDescending(x => x.cat_id).ToList();
@@ -193,12 +250,12 @@ namespace QuizApp.Controllers
 
 
             tbl_category c = new tbl_category();
-           
 
-
+            Random r = new Random()
+;
             c.cat_name = cat.cat_name;
-            c.cat_encrytped_string = cat.cat_encrytped_string;
             c.cat_fk_ad_id = Convert.ToInt32(Session["ad_id"].ToString());
+            c.cat_encrytped_string = crypt.Encrypt(cat.cat_name.Trim() + r.Next().ToString(),true) ;
 
             db.tbl_category.Add(c);
             db.SaveChanges();

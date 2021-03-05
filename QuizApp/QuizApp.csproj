@@ -276,6 +276,7 @@
     <Content Include="Views\Home\Add_Questions.cshtml" />
     <Content Include="Views\Home\Sregister.cshtml" />
     <Content Include="Views\Home\ExamDashboard.cshtml" />
+    <Content Include="Views\Home\StartQuiz.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

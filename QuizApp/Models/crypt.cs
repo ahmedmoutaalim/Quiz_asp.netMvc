@@ -25,9 +25,11 @@ namespace QuizApp.Models
                 MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
                 keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
                 hashmd5.Clear();
+
+                
             }
             else
-            {
+            
                 keyArray = UTF8Encoding.UTF8.GetBytes(key);
 
                 TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
@@ -42,7 +44,8 @@ namespace QuizApp.Models
 
                 return Convert.ToBase64String(resultArray, 0, resultArray.Length);
             }
+
             
+
         }
     }
-}
