@@ -10,67 +10,108 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>StartQuiz</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    @using (Html.BeginForm()) 
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        
-        <div class="form-horizontal">
-            <h4>tbl_questions</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.q_text, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.q_text, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.q_text, "", new { @class = "text-danger" })
+
+
+        <div class="row">
+
+            <div class="container" style="margin:0 auto ; margin-top:200px;">
+
+                <div class="row">
+                    @Html.DisplayFor(x => x.q_text)
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.QA, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <span> @Html.RadioButtonFor(model => model.QA, new { htmlAttributes = new { @class = "form-control" } })@Model.QA  </span>
-                    @Html.ValidationMessageFor(model => model.QA, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <h3> @Html.RadioButtonFor(x => x.QA, new { @class = "form-control" }) @Model.QA</h3>
+
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.QB, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <span> @Html.RadioButtonFor(model => model.QB, new { htmlAttributes = new { @class = "form-control" } })@Model.QB  </span>
-                    @Html.ValidationMessageFor(model => model.QB, "", new { @class = "text-danger" })
+                <div class="row">
+                    <h3> @Html.RadioButtonFor(x => x.QB, new { @class = "form-control" }) @Model.QB</h3>
+
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.QC, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <span> @Html.RadioButtonFor(model => model.QC, new { htmlAttributes = new { @class = "form-control" } })@Model.QC  </span>
-                    @Html.ValidationMessageFor(model => model.QC, "", new { @class = "text-danger" })
+                <div class="row">
+                    <h3> @Html.RadioButtonFor(x => x.QC, new { @class = "form-control" }) @Model.QC</h3>
+
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.QD, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <span> @Html.RadioButtonFor(model => model.QD, new { htmlAttributes = new { @class = "form-control" } })@Model.QD  </span>
-                    @Html.ValidationMessageFor(model => model.QD, "", new { @class = "text-danger" })
+                <div class="row">
+                    <h3> @Html.RadioButtonFor(x => x.QD, new { @class = "form-control" }) @Model.QD</h3>
+
                 </div>
+
+                <div class="row">
+                 <input type="submit" value="Submit" class="btn btn-default"  />
+
+                </div>
+
+
             </div>
 
-    
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
         </div>
+
+
     }
-    
+
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>
 </body>
 </html>
+
+
+@*<div class="form-horizontal">
+    <h4>tbl_questions</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.q_text, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.q_text, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.q_text, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.QA, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <span> @Html.RadioButtonFor(model => model.QA, new { htmlAttributes = new { @class = "form-control" } })@Model.QA  </span>
+            @Html.ValidationMessageFor(model => model.QA, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.QB, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <span> @Html.RadioButtonFor(model => model.QB, new { htmlAttributes = new { @class = "form-control" } })@Model.QB  </span>
+            @Html.ValidationMessageFor(model => model.QB, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.QC, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <span> @Html.RadioButtonFor(model => model.QC, new { htmlAttributes = new { @class = "form-control" } })@Model.QC  </span>
+            @Html.ValidationMessageFor(model => model.QC, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.QD, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <span> @Html.RadioButtonFor(model => model.QD, new { htmlAttributes = new { @class = "form-control" } })@Model.QD  </span>
+            @Html.ValidationMessageFor(model => model.QD, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>*@

@@ -184,7 +184,17 @@ namespace QuizApp.Controllers
                
                 if (item.cat_encrytped_string == room)
                 {
-                    TempData["examid"] = item.cat_id;
+                    List<tbl_questions> li = db.tbl_questions.Where(x => x.q_fk_catid == item.cat_id).ToList();
+                    Queue<tbl_questions> queue = new Queue<tbl_questions>();
+
+                    foreach(tbl_questions a in li)
+                    {
+                        queue.Enqueue(a);
+                    }
+
+                    TempData["questions"] = queue;
+                    TempData["score"] = 0;
+              
                     TempData.Keep();
                     return RedirectToAction("StartQuiz");
                 }
@@ -199,15 +209,148 @@ namespace QuizApp.Controllers
         public ActionResult StartQuiz()
         {
 
-            tbl_questions q = null;
-
-            if(TempData["q_id"] == null)
+            if (Session["std_id"] == null)
             {
-              int examId = Convert.ToInt32(TempData["examid"]);
-              q = db.tbl_questions.First(x => x.q_fk_catid == examId);
-              //tbl_questions q = db.tbl_questions.Where(x=>x.q_fk_catid == examId && ).SingleOrDefault();
+                return RedirectToAction("slogin");
             }
+
+            tbl_questions q = null;
+            if(TempData["questions"] != null)
+            {
+                Queue<tbl_questions> qlist = (Queue<tbl_questions>)TempData["questions"];
+                if (qlist.Count > 0)
+                {
+                    q = qlist.Peek();
+                    qlist.Dequeue();
+
+                    TempData["questions"] = qlist;
+                    TempData.Keep();
+                }
+                else
+                {
+                    return RedirectToAction("EndExam");
+                }
+             
+
+           
+            }
+            else
+            {
+                return RedirectToAction("ExamDashboard");
+
+            }
+
             return View(q);
+            /*  if (TempData["i"] == null)
+              {
+                  TempData["i"] = 1;
+              }
+              if (Session["std_id"] == null)
+              {
+                  return RedirectToAction("slogin");
+              }
+
+
+              try
+              {
+                  if (TempData["examid"] == null)
+                  {
+                      return RedirectToAction("ExamDashboard");
+                  }
+
+                  tbl_questions q = null;
+                  int examId = Convert.ToInt32(TempData["examid"].ToString());
+
+
+                  if (TempData["q_id"] == null)
+                  {
+
+                      q = db.tbl_questions.First(x => x.q_fk_catid == examId);
+
+                      var list = db.tbl_questions.Skip(Convert.ToInt32(TempData["i"].ToString()));
+
+                      int q_id= list.First().q_id;
+
+                      TempData["q_id"] = q.q_id;
+                  }
+                  else
+                  {
+
+                      int q_id = Convert.ToInt32(TempData["q_id"].ToString());
+                      q = db.tbl_questions.Where(x => x.q_id == q_id && x.q_fk_catid == examId).SingleOrDefault();
+
+                      var list = db.tbl_questions.Skip(Convert.ToInt32(TempData["i"].ToString()));
+
+                     q_id = list.First().q_id;
+
+                      TempData["q_id"] = q.q_id;
+                      TempData["i"] = Convert.ToInt32(TempData["i"].ToString())+ 1 ;
+
+                  }
+
+                  TempData.Keep();
+                  return View(q);
+              }
+              catch(Exception)
+              {
+
+                 return RedirectToAction("ExamDashboard");
+              }
+              */
+        }
+
+        [HttpPost]
+        public ActionResult StartQuiz(tbl_questions q)
+        {
+
+            string correctans = null;
+            if (q.QA != null)
+            {
+
+                correctans = "A";
+              /*  if (q.QA.Equals("A")){ 
+                    TempData["score"] = Convert.ToInt32(TempData["score"]) + 1;
+                }*/
+            }
+            else if(q.QB != null)
+            {
+                correctans = "B";
+                /*
+                if (q.QB.Equals("B"))
+                {
+                    TempData["score"] = Convert.ToInt32(TempData["score"]) + 1;
+                }*/
+            }
+            else if (q.QC != null)
+            {
+                correctans = "C";
+                /*   if (q.QC.Equals("C"))
+                   {
+                       TempData["score"] = Convert.ToInt32(TempData["score"]) + 1;
+                   }*/
+            }
+            else if (q.QD != null)
+            {
+
+                correctans = "D";
+                /*  if (q.QD.Equals("D"))
+                  {
+                      TempData["score"] = Convert.ToInt32(TempData["score"]) + 1;
+                  }*/
+            }
+
+            if (correctans.Equals(q.QA)) {
+
+                TempData["score"] = Convert.ToInt32(TempData["score"]) + 1;
+            }
+
+            TempData.Keep();
+            return RedirectToAction("StartQuiz");
+        }
+
+        public ActionResult EndExam(tbl_questions q)
+        {
+            return View();
         }
 
         public ActionResult Dashboard()
